@@ -27,6 +27,8 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', cast=bool)
 
+CSRF_TRUSTED_ORIGINS=['http://localhost:8000/register/']
+
 ALLOWED_HOSTS = []
 
 

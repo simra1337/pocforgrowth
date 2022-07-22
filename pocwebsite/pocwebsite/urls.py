@@ -22,6 +22,6 @@ from forgotpassword.views import forgotpasswordAction
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', signupAction),
-    path('login', loginAction),
-    path('forgotpassword', forgotpasswordAction),
+    path('login/', loginAction),
+    path('forgotpassword/', forgotpasswordAction),
 ]
