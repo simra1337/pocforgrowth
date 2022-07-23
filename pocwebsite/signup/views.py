@@ -14,7 +14,7 @@ pwd=''
 def signupAction(request) :
     global fn, ln, email, ph, pwd
     if request.method=='POST':
-        m=sql.connect(host="localhost", user="root", passwd="ttn", database = 'growthpoc')
+        m=sql.connect(host="localhost", user="root", passwd="tata123", database = 'growthpoc')
         cursor = m.cursor()
         d=request.POST
         for key,value in d.items():
