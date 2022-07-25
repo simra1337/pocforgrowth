@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from signup.views import signupAction
 from login.views import loginAction
+from resetpassword.views import resetPasswordAction
 from forgotpassword.views import forgotpasswordAction
 
 urlpatterns = [
@@ -24,4 +25,5 @@ urlpatterns = [
     path('register/', signupAction),
     path('login/', loginAction),
     path('forgotpassword/', forgotpasswordAction),
+    path('resetpassword/', resetPasswordAction),
 ]
