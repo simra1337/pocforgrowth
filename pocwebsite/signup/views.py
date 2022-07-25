@@ -1,9 +1,12 @@
+from ast import IsNot
 from curses import keyname
 from distutils.log import error
-import re
+from lib2to3.pgen2.token import NOTEQUAL
 from django.shortcuts import render
 import mysql.connector as sql
 from django.views.decorators.csrf import csrf_exempt
+import os
+from dotenv import load_dotenv
 
 # Create your views here.
 fn=''
@@ -11,12 +14,14 @@ ln=''
 email=''
 ph=''
 pwd=''
+load_dotenv()
 
 @csrf_exempt
 def signupAction(request) :
     global fn, ln, email, ph, pwd
     if request.method=='POST':
-        m=sql.connect(host="localhost", user="root", passwd="tata123", database = 'growthpoc')
+        #m=sql.connect(host="localhost", user="root", passwd="ttn", database = 'growthpoc')
+        m=sql.connect(host=os.getenv('HOST', default='localhost'), user=os.getenv('DBUSER', default='root'), passwd =os.getenv('PASSWORD'), database=os.getenv('DATABASE'))
         cursor = m.cursor()
         d=request.POST
         error_message = ''
@@ -45,8 +50,8 @@ def signupAction(request) :
             if key=="phone":
                 if not value:
                     error_message = "Phone number required"
-                elif len(value) < 10:
-                    error_message = "Phone number length should not be less than 10"
+                elif len(value)<10 or len(value)>12:
+                    error_message = "Phone number length should not be less than 10 and greator than 12"
                 else:
                     ph = value
             if key=="password":
@@ -56,6 +61,9 @@ def signupAction(request) :
                     error_message = "Password length should be more than 6"
                 else:
                     pwd = value
+            if key=="cpassword":
+                if value!=pwd:
+                    error_message = "Passwords do not match"
         if not error_message:
             c="insert into users Values('{}','{}','{}','{}','{}')".format(fn,ln,email,ph,pwd)
             cursor.execute(c)

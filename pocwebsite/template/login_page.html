@@ -3,6 +3,11 @@
     <body>
         <div>
             <form method="POST">
+                {%if error%}
+                <div class="alert alert-danger" role="alert">
+                    {{error}}
+                </div>
+                {%endif%}
                 <label>email</label>
                 <input type="text" name="email"><br>
                 <label>password</label>
