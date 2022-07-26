@@ -29,7 +29,7 @@ DEBUG = config('DEBUG', cast=bool)
 
 CSRF_TRUSTED_ORIGINS=['http://localhost:8000/register/']
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition

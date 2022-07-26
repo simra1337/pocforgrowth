@@ -1,3 +1,4 @@
+from unittest import expectedFailure
 from django.shortcuts import render
 from dotenv import load_dotenv
 from django.views.decorators.csrf import csrf_exempt
@@ -6,6 +7,8 @@ import os
 from django.core.mail import send_mail
 from django.dispatch import receiver
 import uuid
+from time import gmtime, strftime
+import datetime
 
 # Create your views here.
 email = ''
@@ -38,11 +41,13 @@ def forgotpasswordAction(request) :
                 return render(request, 'error_page.html')
             else:
                 token = str(uuid.uuid4())
-                c="insert into tokendata values('{}','{}')".format(token, email)
-                print("sssssssssssssssssssssssssssssssssssssssss")
-                print(c)
-                cursor.execute(c)
-                m.commit()
+                time = strftime("%H:%M:%S", gmtime())
+                try:
+                    c="insert into tokendata(token, email) values('{}','{}')".format(token, email)
+                    cursor.execute(c)
+                    m.commit()
+                except Exception as e:
+                    print(e)
                 emailSenderHelper(email,token)
         else:
             return render(request, 'forgotpassword_page.html', {'error': error_message})
