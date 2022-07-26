@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'login',
     'signup',
     'forgotpassword',
-    'resetpassword'
+    'resetpassword',
 ]
 
 MIDDLEWARE = [

@@ -25,5 +25,5 @@ urlpatterns = [
     path('register/', signupAction),
     path('login/', loginAction),
     path('forgotpassword/', forgotpasswordAction),
-    path('resetpassword/', resetPasswordAction),
+    path('resetpassword/<token>/', resetPasswordAction),
 ]

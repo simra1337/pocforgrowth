@@ -5,6 +5,7 @@ import mysql.connector as sql
 import os
 from django.core.mail import send_mail
 from django.dispatch import receiver
+import uuid
 
 # Create your views here.
 email = ''
@@ -36,16 +37,22 @@ def forgotpasswordAction(request) :
             if t==():
                 return render(request, 'error_page.html')
             else:
-                emailSenderHelper(email)
+                token = str(uuid.uuid4())
+                c="insert into tokendata values('{}','{}')".format(token, email)
+                print("sssssssssssssssssssssssssssssssssssssssss")
+                print(c)
+                cursor.execute(c)
+                m.commit()
+                emailSenderHelper(email,token)
         else:
             return render(request, 'forgotpassword_page.html', {'error': error_message})
     return render(request, 'forgotpassword_page.html')
 
 
-def emailSenderHelper(email):
+def emailSenderHelper(email, token):
     send_mail(
 	    subject,
-		message + '?email=' + email,
+		message + token,
 		sender,
 		['hashitest3@gmail.com'],
         fail_silently=False,
